@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php
-    echo "Hola mundo br";
+    echo "Hola mundo <br>";
     echo date ("d/m/y");
     ?>
 </body>
