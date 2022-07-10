@@ -9,7 +9,7 @@ date_default_timezone_set("America/Argentina/Buenos_Aires");
 $fecha= date ("d/m/Y");
 $nombre = "Johannys Guzman";
 $edad = 28;
-$aPeliculas = array("Diario de una pasion", "Up", "El diablo se viste a la moda");
+$aPeliculas = array("Saw", "Up", "Pesadilla en elm street");
 ?>
 <!DOCTYPE html>
 <html lang="es">
