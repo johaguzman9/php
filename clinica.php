@@ -55,17 +55,15 @@ $aPacientes[] = array("nombre" => "Beatriz Ocampo",
     </thead>
     <tbody>
         <?php
-        $contador= 0;
-        while ($contador <4){?>
+        foreach($aPacientes as $paciente) { ?>
         <tr>
-        <td><?php echo $aPacientes[$contador] ["dni"]; ?></td>
-        <td><?php echo $aPacientes [$contador] ["nombre"]; ?></td>
-        <td><?php echo $aPacientes [$contador] ["edad"]; ?></td>
-        <td><?php echo $aPacientes [$contador] ["peso"]; ?></td>
+        <td><?php echo $paciente ["dni"]; ?></td>
+        <td><?php echo $paciente ["nombre"]; ?></td>
+        <td><?php echo $paciente["edad"]; ?></td>
+        <td><?php echo $paciente ["peso"]; ?></td>
         </tr>
         <?php
-        $contador ++;
-        }?>
+        } ?>
     </tbody>
     </table>       
     </div>
