@@ -9,6 +9,9 @@ $aEmpleados[] = array ("dni"=> 33330675, "nombre"=>"David Garcia", "bruto"=> 850
 $aEmpleados[] = array ("dni"=> 40765908, "nombre"=>"Ana Del Valle", "bruto"=> 90000);
 $aEmpleados[] = array ("dni"=> 67324653, "nombre"=> "Andres Perez", "bruto"=>100000);
 $aEmpleados[] = array ("dni"=> 75334092, "nombre"=> "Victoria Luz", "bruto"=>70000);
+function calcularNeto ($bruto){
+    return $bruto - ($bruto * 0.17);
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -35,23 +38,21 @@ $aEmpleados[] = array ("dni"=> 75334092, "nombre"=> "Victoria Luz", "bruto"=>700
                     </tr>
                     <tbody>
                     <?php
-        foreach($aEmpleados as $empleado) { ?>
+        foreach($aEmpleados as $empleado) { }?>  
                     <tr>
                         <td><?php echo $empleado ["dni"]?></td>
-                        <td><?php echo $empleado ["nombre"]?></td>
-                        <td><?php echo $empleado ["bruto"]?></td>
-                    </tr>
-                    <?php
-        }?>
-        <?php
-        function calcularNeto ($bruto){
-            return $bruto - ($bruto * 0.17);
-        }
-     
-        ?>
+                        <td><?php echo mb_strtoupper $empleado ["nombre"]?></td>
+                        <td><?php echo number_format(calcularNeto ($empleado ["bruto"],2, ",", ".")); ?></td>
+                    </tr>   
                     </tbody>
                 </thead>
             </table>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+             <p>Cantidad de empleados activos: <?php echo count ($aEmpleados); ?> </p>
+        </div>
     </div>
 </main>
 </head>
