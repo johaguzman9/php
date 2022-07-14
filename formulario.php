@@ -29,9 +29,9 @@ if ($_POST){
         </div>
         <div class="row">
             <div class="col-12">
-            <?php if (isset($mensaje)): ?>
+            <?php if (isset($msg)): ?>
                     <div class="alert alert-danger" role="alert">
-                        <?php echo $mensaje; ?>
+                        <?php echo $msg; ?>
                     </div>
                 <?php endif; ?>
             <form action="" method="$_POST"></form>
