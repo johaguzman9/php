@@ -1,1 +1,1 @@
-[{"dni":"95613731","nombre":"johannys guzman","telefono":"1131834137","correo":"jandreinagrivas@hotmail.com","imagen":""},{"dni":"95613785","nombre":"claudio","telefono":"1127206337","correo":"claudiofgonzalezf@gmail.com","imagen":""}]
+[{"dni":"95613731","nombre":"johannys guzman","telefono":"772319937","correo":"jandreinagrivas@hotmail.com","imagen":"2022080412083629.jpg"}]

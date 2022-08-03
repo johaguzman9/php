@@ -99,8 +99,8 @@ if(isset($_GET["do"]) && $_GET["do"] == "eliminar"){
     <title>ABM Clientes</title>
      <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-<link rel="stylesheet" href="css/fontawesome6/css/all.min.css">
-   <link rel="stylesheet" href="css/fontawesome6/css/fontawesome.min.css">
+<link rel="stylesheet" href="css/fontawesome/css/all.min.css">
+   <link rel="stylesheet" href="css/fontawesome/css/fontawesome.min.css">
 </head>
 <body>
     <main class="container">
@@ -129,7 +129,7 @@ if(isset($_GET["do"]) && $_GET["do"] == "eliminar"){
                 <input type="text" name="txtCorreo" id="txtCorreo" class="form-control" require value="<?php echo isset($aClientes[$pos])? $aClientes[$pos]["correo"]: ""; ?>">
             </div>
             <div>
-            <label for="">Archivo Adjunto></label>
+            <label for="">Archivo Adjunto</label>
             <input type="file" name="archivo" id="archivo" accept=".jpg, .jepg, .png" class="form-control">
             <small class="d-block">Archivos admitidos: .jpg, .jepg, .png</small>
             </div>
