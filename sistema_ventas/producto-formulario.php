@@ -1,6 +1,36 @@
 <?php
 
 include_once "config.php";
+include_once "entidades/producto.php";
+include_once "entidades/tipoproducto.php";
+
+$producto = new Producto();
+
+if ($_POST) {
+    if (isset($_POST["btnGuardar"])) {
+        $tipoProducto->cargarFormulario($_REQUEST);
+
+        if (isset($_GET["id"]) && $_GET["id"] > 0) {
+            $tipoProducto->actualizar();
+            $msg["texto"] = "Actualizado correctamente";
+            $msg["codigo"] = "alert-success";
+        } else {
+            $tipoProducto->insertar();
+            $msg["texto"] = "Insertado correctamente";
+             $msg["codigo"] = "alert-danger";
+        }
+
+    } else if (isset($_POST["btnBorrar"])) {
+        $tipoProducto->cargarFormulario($_REQUEST);
+        $tipoProducto->eliminar();
+        header("Location: tipoproducto-listado.php");
+    }
+}
+
+if (isset($_GET["id"]) && $_GET["id"] > 0) {
+    $tipoProducto->cargarFormulario($_REQUEST);
+    $tipoProducto->obtenerPorId();
+}
 include_once "header.php";
 ?>
 
@@ -26,9 +56,15 @@ include_once "header.php";
                     <label for="txtNombre">Tipo de producto:</label>
                     <select name="lstTipoProducto" id="lstTipoProducto" class="form-control selectpicker" data-live-search="true" required>
                         <option value="" disabled selected>Seleccionar</option>
+                        <?php foreach($aTipoProductos as $tipoProducto): ?>
+                            <?php if($producto->fk_idtipoproducto == $tipoProducto->idtipoproducto): ?>
+                                <option selected value="<?php echo $tipoProducto->idtipoproducto;?>"><?php echo $tipoProducto->nombre; ?></option>
+                            <?php else: ?>
+                                <option value="<?php echo $tipoProducto->idtipoproducto;?>"><?php echo $tipoProducto->nombre; ?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </select>
                 </div>
-
                 <div class="col-6 form-group">
                     <label for="txtCantidad">Cantidad:</label>
                     <input type="number" required="" class="form-control" name="txtCantidad" id="txtCantidad" value="">
