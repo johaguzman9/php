@@ -8,32 +8,69 @@ $producto = new Producto();
 
 if ($_POST) {
     if (isset($_POST["btnGuardar"])) {
-        $tipoProducto->cargarFormulario($_REQUEST);
+        $producto->cargarFormulario($_REQUEST);
 
         if (isset($_GET["id"]) && $_GET["id"] > 0) {
-            $tipoProducto->actualizar();
+
+            if ($_FILES["archivo"]["error"] === UPLOAD_ERR_OK) {
+                $nombreAleatorio = date("Ymdhmsi");
+                $archivo_tmp = $_FILES["archivo"]["tmp_name"];
+                $nombreArchivo = $_FILES["archivo"]["name"];
+                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                $nombreImagen = "$nombreAleatorio.$extension";
+
+                if ($extension == "png" || $extension == "jpg" || $extension == "jpeg") {
+                    move_uploaded_file($archivo_tmp, "files/$nombreImagen");
+                }
+                $producto->imagen = $nombreImagen;
+            } else {
+                $productoAnt = new Producto();
+                $productoAnt->idproducto = $_GET["id"];
+                $productoAnt->obtenerPorId();
+                $producto->imagen = $productoAnt->imagen;
+            }
+
+            $producto->actualizar();
             $msg["texto"] = "Actualizado correctamente";
             $msg["codigo"] = "alert-success";
         } else {
-            $tipoProducto->insertar();
+            if($_FILES["archivo"]["error"] === UPLOAD_ERR_OK){
+                $nombreAleatorio = date("Ymdhmsi");
+                $archivo_tmp = $_FILES["archivo"]["tmp_name"];
+                $nombreArchivo = $_FILES["archivo"]["name"];
+                $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+                $nombreImagen = "$nombreAleatorio.$extension";
+
+                if ($extension == "png" || $extension == "jpg" || $extension == "jpeg") {
+                    move_uploaded_file($archivo_tmp, "files/$nombreImagen");
+                }
+                $producto->imagen = $nombreImagen;
+            }
+
+            $producto->insertar();
             $msg["texto"] = "Insertado correctamente";
-             $msg["codigo"] = "alert-danger";
+            $msg["codigo"] = "alert-success";
         }
 
     } else if (isset($_POST["btnBorrar"])) {
-        $tipoProducto->cargarFormulario($_REQUEST);
-        $tipoProducto->eliminar();
-        header("Location: tipoproducto-listado.php");
+        $producto->cargarFormulario($_REQUEST);
+        $producto->eliminar();
+        header("Location: producto-listado.php");
     }
 }
 
 if (isset($_GET["id"]) && $_GET["id"] > 0) {
-    $tipoProducto->cargarFormulario($_REQUEST);
-    $tipoProducto->obtenerPorId();
+    $producto->cargarFormulario($_REQUEST);
+    $producto->obtenerPorId();
 }
-include_once "header.php";
-?>
 
+$tipoProducto = new TipoProducto();
+$aTipoProductos = $tipoProducto->obtenerTodos();
+
+include_once "header.php";
+
+
+?>
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -67,20 +104,22 @@ include_once "header.php";
                 </div>
                 <div class="col-6 form-group">
                     <label for="txtCantidad">Cantidad:</label>
-                    <input type="number" required="" class="form-control" name="txtCantidad" id="txtCantidad" value="">
+                    <input type="number" required="" class="form-control" name="txtCantidad" id="txtCantidad" value="<?php echo $producto->cantidad; ?>">
                 </div>
                 <div class="col-6 form-group">
                     <label for="txtPrecio">Precio:</label>
-                    <input type="text" class="form-control" name="txtPrecio" id="txtPrecio" value="">
+                    <input type="text" class="form-control" name="txtPrecio" id="txtPrecio" value="<?php echo $producto->precio; ?>">
                 </div>
                 <div class="col-12 form-group">
                     <label for="txtCorreo">Descripción:</label>
-                    <textarea type="text" name="txtDescripcion" id="txtDescripcion"></textarea>
+                    <textarea type="text" name="txtDescripcion" id="txtDescripcion"><?php echo $producto->descripcion; ?></textarea>
                 </div>
                 <div class="col-6 form-group">
                     <label for="fileImagen">Imagen:</label>
                     <input type="file" class="form-control-file" name="imagen" id="imagen">
-                    <img src="files/" class="img-thumbnail">
+                    <?php if($producto->imagen != ""): ?>
+                        <img src="files/<?php echo $producto->imagen; ?>" class="img-thumbnail">
+                    <?php endif; ?>
                 </div>
             </div>
 
