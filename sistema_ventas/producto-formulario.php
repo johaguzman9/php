@@ -42,6 +42,14 @@ if ($_POST) {
                 $nombreImagen = "$nombreAleatorio.$extension";
 
                 if ($extension == "png" || $extension == "jpg" || $extension == "jpeg") {
+                    //Estoy eliminando la imagen anterior
+                    $productoAnt = new Producto();
+                    $productoAnt->idproducto = $_GET ["id"];
+                    $producto->imagen = $productoAnt->imagen;
+                    if (file_exists("files/producto->imagen")){
+                        unlink("files/$producto->imagen");
+                    }
+                   //Estoy subiendo la imagen nueva  
                     move_uploaded_file($archivo_tmp, "files/$nombreImagen");
                 }
                 $producto->imagen = $nombreImagen;
@@ -53,7 +61,12 @@ if ($_POST) {
         }
 
     } else if (isset($_POST["btnBorrar"])) {
+        $producto = new Producto();
         $producto->cargarFormulario($_REQUEST);
+        $producto->obtenerPorId();
+        if (file_exists("files/producto->$imagen")){
+            unlink("files/$producto->$imagen");
+        }
         $producto->eliminar();
         header("Location: producto-listado.php");
     }
@@ -84,6 +97,15 @@ include_once "header.php";
                     <button type="submit" class="btn btn-danger" id="btnBorrar" name="btnBorrar">Borrar</button>
                 </div>
             </div>
+            <?php if (isset ($msg)): ?>
+            <div class="row">
+                <div class="col-12 form-group">
+                    <div class="alert <?php echo $msg ["codigo"]; ?> alert-danger" role="alert">
+                        <?php echo $msg ["texto"]; ?>
+                    </div>
+                </div>
+                    </div>
+                <?php endif; ?>
             <div class="row">
                 <div class="col-6 form-group">
                     <label for="txtNombre">Nombre:</label>
