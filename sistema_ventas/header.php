@@ -1,8 +1,10 @@
 <?php
-session_start();
+if (!isset ($_SESSION["nombre"])){
+  header("Location: login.php");
+}
 
 if ($_POST){
-  if ($_POST["btnCerrar"]){
+  if (isset ($_POST["btnCerrar"])){
 if(isset($_SESSION["nombre"])){
   session_destroy();
   header("Location: login.php");

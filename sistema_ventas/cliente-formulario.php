@@ -3,6 +3,7 @@
 
 include_once "config.php";
 include_once "entidades/cliente.php";
+include_once "entidades/venta.php";
 include_once "entidades/provincia.php";
 include_once "entidades/localidad.php";
 
@@ -24,8 +25,15 @@ if($_POST){
         $msg["codigo"] = "alert-success";
 
     } else if(isset($_POST["btnBorrar"])){
-        $cliente->eliminar();
+        //si existen ventas asociadas al cliente que se intenta eliminar, muestra mensaje de alerta
+        $venta = new Venta();
+        if ($venta->obtenerVentasPorCliente($cliente->idcliente)){
+            $msg["texto"] = "No se puede eliminar un cliente con ventas asociadas";
+            $msg["codigo"] = "alert-danger";
+        }else{
+            $cliente->eliminar();
         header("Location: cliente-listado.php");
+        }
     }
 } 
 

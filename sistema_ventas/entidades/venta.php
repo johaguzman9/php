@@ -97,6 +97,35 @@ class Venta {
         $mysqli->close();
     }
 
+    public function obtenerVentasPorCliente($idCliente)
+    {
+        $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
+        $sql = "SELECT  idventa, 
+                        fk_idcliente, 
+                        fk_idproducto, 
+                        fecha, 
+                        cantidad,
+                        preciounitario,
+                        total
+                FROM ventas  WHERE fk_idcliente = idCliente";
+        if (!$resultado = $mysqli->query($sql)) {
+            printf("Error en query: %s\n", $mysqli->error . " " . $sql);
+        }
+        $aResultado = array();
+        if ($resultado){
+        //Convierte el resultado en un array asociativo
+        while ($fila = $resultado->fetch_assoc()){
+            $this->idventa = $fila["idventa"];
+            $this->fk_idcliente = $fila["fk_idcliente"];
+            $this->fk_idproducto = $fila["fk_idproducto"];
+            $this->fecha = $fila["fecha"];
+            $this->cantidad = $fila["cantidad"];
+            $this->preciounitario = $fila["preciounitario"];
+            $this->total = $fila["total"];
+        }
+    }
+        $mysqli->close();
+    }
     public function obtenerPorId(){
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
         $sql = "SELECT  idventa, 

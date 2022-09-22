@@ -3,32 +3,25 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
+include_once "config.php";
+include_once "entidades/usuario.php";
 
 if($_POST){
-  $usuario = trim($_REQUEST["txtUsuario"]);
+  $nombreUsuario = trim($_REQUEST["txtUsuario"]);
   $clave = trim($_REQUEST["txtClave"]);
 
   //Si el usuario es admin y la clave es admin123
-<<<<<<< HEAD:sistema_ventas/login.php
-  if($usuario =="admin" && $clave == "admin123"){
-    $_SESSION["nombre"] = "Johannys";
-    header("location: index.php");
-  } else{
-    $msg = "Usuario o clave incorrecto";
-   }
- 
+  $entidadUsuario = new Usuario();
+  $entidadUsuario->obtenerPorUsuario($nombreUsuario);
 
-
-=======
-  if($usuario == "admin" && $clave == "admin123"){
-    $_SESSION["nombre"] = "Nelson";
+  if($entidadUsuario->usuario == "$nombreUsuario" && password_verify($clave, $entidadUsuario->clave)){
+    $_SESSION["nombre"] = $entidadUsuario->nombre . " " . $entidadUsuario->apellido;
     header("Location: index.php");
   } else {
     $msg = "Usuario o clave incorrecto";
   }
->>>>>>> 37eb8829e7ae7d8cdc3a7f2b6da8693050510f45:sistema_ventas1/login.php
 }
+
 
 
 
