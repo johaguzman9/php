@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       aValores = [1, 3, 7, 10, 14, 18, 21, 27, 30, 35]
+
+aValores.forEach(function (numero) {
+    if ((numero % 7) == 0) {
+        document.write(`${numero} `);
+    }
+});
+
+function imprimirListado(aArray){
+    aArray.forEach(function (numero) {
+            document.write(`${numero} `);
+    });
+}
+imprimirListado(aValores);
+
+
+
+resultado = aValores.filter(function (valor) {
+        return ((valor % 7) == 0);
+});
+imprimirListado(resultado);
+
+
+
+resultado = aValores.map(function (valor) {
+        return (Math.sqrt(valor));
+});
+imprimirListado(resultado);
+
+
+    </script>
+</body>
+</html>
